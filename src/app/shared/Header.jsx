@@ -12,7 +12,7 @@ export default function Header() {
   };
 
   return (
-    <header className='h-[50px] w-full relative bg-[#ADDFB2] px-3'>
+    <header className='font-lexend h-[50px] w-full relative bg-[#ADDFB2] px-3'>
       <div className='h-full max-w-[350px] m-auto flex items-center justify-between'>
         <Link
           href='/'

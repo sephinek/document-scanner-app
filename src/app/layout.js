@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body
-        className={`${kohSantepheap.variable} ${lexend.variable} font-normal`}
+        className={`${kohSantepheap.variable} ${lexend.variable} font-normal flex flex-col`}
       >
         <Header />
         {children}

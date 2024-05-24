@@ -34,7 +34,7 @@ export default function Header() {
     return () => {
       window.removeEventListener('mousedown', navCloseHandler);
     };
-  }, []);
+  }, [mobileNavbar]);
 
   return (
     <header className='flex-none font-lexend h-[50px] w-full relative bg-[#ADDFB2]'>

@@ -122,7 +122,7 @@ export default function Home() {
 
         <div className='w-full text-center mt-6'>
           <button
-            className='bg-[#2c2c2c] text-white font-lexend py-3 px-10 rounded-md shadow-lg'
+            className='text-sm tablet:text-base bg-[#2c2c2c] text-white font-lexend py-3 px-10 rounded-md shadow-lg'
             onClick={extractTextHandler}
           >
             Extract Text

@@ -5,8 +5,8 @@ export default function About() {
   return (
     <main className='relative w-full m-auto grow p-3 mx-auto my-5 pb-10'>
       <div className='max-w-screen-md mx-auto'>
-        <h2 className='text-xl sm:text-3xl mb-5 text-center'>About Us</h2>
-        <div className='flex flex-col justify-start gap-6 p-3 sm:text-lg'>
+        <h2 className='text-xl sm:text-2xl mb-5 text-center'>About Us</h2>
+        <div className='flex flex-col justify-start gap-6 p-3 sm:text-md'>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.

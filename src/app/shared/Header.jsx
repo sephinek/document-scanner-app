@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import menuIcon from '../../../public/menu-icon.png';
 import Image from 'next/image';
 
@@ -22,7 +22,19 @@ export default function Header() {
     }
   };
 
-  document.addEventListener('mousedown', navCloseHandler);
+  useEffect(() => {
+    const navCloseHandler = (e) => {
+      if (mobileNavbar && !navRef.current?.contains(e.target)) {
+        setMobileNavbar(false);
+      }
+    };
+
+    window.addEventListener('mousedown', navCloseHandler);
+
+    return () => {
+      window.removeEventListener('mousedown', navCloseHandler);
+    };
+  }, []);
 
   return (
     <header className='flex-none font-lexend h-[50px] w-full relative bg-[#ADDFB2]'>

@@ -37,18 +37,12 @@ export default function Home() {
   };
 
   const takePhoto = () => {
-    const width = 414;
-    const height = width / (16 / 9);
-
     let video = videoRef.current;
     let photo = photoRef.current;
 
     if (photo) {
-      photo.width = width;
-      photo.height = height;
-
       const ctx = photo.getContext('2d');
-      ctx.drawImage(video, 0, 0, width, height);
+      ctx.drawImage(video, 0, 0);
     } else {
       setError('Device is not found');
     }
@@ -103,11 +97,7 @@ export default function Home() {
             onChange={imageUploadHandler}
           />
         </div>
-        {/*!uploadedImage && !photoRef.current && (
-          <p className='bg-white border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg w-full max-w-[600px] h-[200px] flex items-center justify-center font-bold'>
-            No Selected Image
-          </p>
-        )*/}
+
         {uploadedImage ? (
           <Image
             className='bg-white border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg w-full max-w-[600px]'

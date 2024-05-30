@@ -37,12 +37,18 @@ export default function Home() {
   };
 
   const takePhoto = () => {
+    const width = 414;
+    const height = 700;
+
     let video = videoRef.current;
     let photo = photoRef.current;
 
     if (photo) {
+      photo.width = width;
+      photo.height = height;
+
       const ctx = photo.getContext('2d');
-      ctx.drawImage(video, 0, 0);
+      ctx.drawImage(video, 0, 0, width, height);
     } else {
       setError('Device is not found');
     }

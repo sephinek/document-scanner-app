@@ -11,6 +11,7 @@ export default function Home() {
   const photoRef = useRef(null);
   const [extractedText, setExtractedText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const imageUploadHandler = (e) => {
     const image = URL.createObjectURL(e.target.files[0]);
@@ -20,7 +21,7 @@ export default function Home() {
   const getVideo = () => {
     navigator.mediaDevices
       .getUserMedia({
-        video: true,
+        video: { facingMode: 'environment' },
         audio: false,
       })
       .then((stream) => {
@@ -42,11 +43,15 @@ export default function Home() {
     let video = videoRef.current;
     let photo = photoRef.current;
 
-    photo.width = width;
-    photo.height = height;
+    if (photo) {
+      photo.width = width;
+      photo.height = height;
 
-    const ctx = photo.getContext('2d');
-    ctx.drawImage(video, 0, 0, width, height);
+      const ctx = photo.getContext('2d');
+      ctx.drawImage(video, 0, 0, width, height);
+    } else {
+      setError('Device is not found');
+    }
   };
 
   useEffect(() => {
@@ -54,9 +59,8 @@ export default function Home() {
   }, [videoRef]);
 
   const extractTextHandler = async () => {
-    console.log('extract clicked');
     setIsLoading(true);
-    let image = uploadedImage || photoRef;
+    let image = uploadedImage || photoRef.current;
     if (image) {
       const result = await Tesseract.recognize(image);
       setExtractedText(result.data.text);
@@ -79,14 +83,15 @@ export default function Home() {
             ref={videoRef}
           ></video>
         </div>
-
         <button
           onClick={takePhoto}
           className='m-auto border-[#A5C9A9] border-[1px] w-14 h-14 rounded-full flex items-center justify-center shadow-lg'
         >
           <Image src={cameraIcon} alt='button to capture' className='w-6' />
         </button>
-
+        {error && (
+          <p className='text-center text-sm text-red-600 mt-3'>{error}</p>
+        )}
         <div className='mt-10 mb-16 text-center sm:text-lg'>
           <p className='font-normal text-center mb-3'>
             <span className='font-semibold'>OR</span> Upload An Image File:
@@ -98,13 +103,12 @@ export default function Home() {
             onChange={imageUploadHandler}
           />
         </div>
-
-        {!uploadedImage && !photoRef.current && (
+        {/*!uploadedImage && !photoRef.current && (
           <p className='bg-white border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg w-full max-w-[600px] h-[200px] flex items-center justify-center font-bold'>
             No Selected Image
           </p>
-        )}
-        {uploadedImage && (
+        )*/}
+        {uploadedImage ? (
           <Image
             className='bg-white border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg w-full max-w-[600px]'
             src={uploadedImage}
@@ -112,12 +116,15 @@ export default function Home() {
             width={414}
             height={300}
           />
-        )}
-        {photoRef.current && (
+        ) : (
           <canvas
-            className='bg-white w-full h-[250px] max-w-[600px] border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg'
+            className='bg-white w-full h-full max-w-[600px] border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg relative'
             ref={photoRef}
-          ></canvas>
+          >
+            <p className='absolute top-0 left-0'>
+              {!uploadedImage && !photoRef.current && 'No selected image'}
+            </p>
+          </canvas>
         )}
 
         <div className='w-full text-center mt-6'>
@@ -128,14 +135,12 @@ export default function Home() {
             Extract Text
           </button>
         </div>
-
         <div className='my-20 text-center sm:text-lg'>
           <span className='font-bold'>Result:</span>
-          <p className='font-lexend font-light p-5 pt-3 leading-relaxed border-2 bg-white mt-5 mx-auto max-w-[600px]'>
+          <p className='font-lexend font-light p-5 leading-relaxed border-2 bg-white mt-5 mx-auto max-w-[600px]'>
             {isLoading ? 'Extracting...' : extractedText}
           </p>
         </div>
-
         <ScrollToTopBtn />
       </div>
     </main>

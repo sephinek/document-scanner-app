@@ -38,7 +38,7 @@ export default function Home() {
 
   const takePhoto = () => {
     const width = 414;
-    const height = 700;
+    const height = 400;
 
     let video = videoRef.current;
     let photo = photoRef.current;
@@ -114,13 +114,9 @@ export default function Home() {
           />
         ) : (
           <canvas
-            className='bg-white w-full h-full max-w-[600px] border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg relative'
+            className='bg-white w-full h-auto max-w-[600px] max-h-[450px] border-[#A5C9A9] border-[1px] rounded-[20px] mx-auto my-5 shadow-lg relative'
             ref={photoRef}
-          >
-            <p className='absolute top-0 left-0'>
-              {!uploadedImage && !photoRef.current && 'No selected image'}
-            </p>
-          </canvas>
+          ></canvas>
         )}
 
         <div className='w-full text-center mt-6'>

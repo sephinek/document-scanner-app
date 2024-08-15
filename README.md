@@ -1,4 +1,4 @@
-# Document Scanner: Script Detection Application
+# Document Scanner📄: Script Detection Application
 
 Document Scanner is a front-end web application designed for real-time text recognition from live photos using Tesseract.js. This tool automates text recognition and data extraction, significantly reducing manual data entry and enhancing efficiency.
 
